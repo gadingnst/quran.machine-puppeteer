@@ -4,9 +4,7 @@ const quran = require('./flat.json')
 
 const flatAyats = Object.entries(quran)
 const getRandomAyatFairly = () => {
-  const [key, translation] = flatAyats[
-    Math.floor(Math.random() * flatAyats.length)
-  ]
+  const [key, translation] = flatAyats[~~(Math.random() * flatAyats.length)]
 
   // flatAyats.find(a => a[0] === '96.1') # iqra
 
