@@ -1,12 +1,13 @@
 // Key: {surah}.{ayat}
 // Value: translation
 
+const Jimp = require('jimp')
 const { puppeteer } = require('./config')
 const quran = require('../quran.json')
 
 async function getScreenshot(url, type = 'jpeg') {
+  const browser = await puppeteer()
   try {
-    const browser = await puppeteer()
     const page = await browser.newPage()
     await page.setViewport({
       width: 640,
@@ -16,7 +17,10 @@ async function getScreenshot(url, type = 'jpeg') {
     await page.goto(url, { waitUntil: 'load', timeout: 0 })
     await autoScroll(page)
     const file = await screenshotAyat(page, type)
-    return file
+    const resizedFile = await Jimp.read(file)
+    return resizedFile
+      .scaleToFit(640, Jimp.AUTO, Jimp.RESIZE_BEZIER)
+      .getBufferAsync(Jimp.AUTO)
   } catch (err) {
     console.error(err)
   } finally {
