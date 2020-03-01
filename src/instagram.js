@@ -6,7 +6,7 @@ const {
 const main = ig => async () => {
     console.info('> Preparing surah...')
     const { surah, ayat, translation } = getRandomAyatFairly()
-    const caption = `${translation} - QS. ${surah}:${ayat}`
+    const caption = `${translation} - QS. ${surah}:${ayat}.\n.\n.\n. #quran #muslim #islam #dakwah`
     const file = await getScreenshot(`https://quran.com/${surah}/${ayat}?translations=20`)
     console.info('> Done.\n')
 
