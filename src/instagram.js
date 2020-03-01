@@ -18,12 +18,16 @@ const login = ig => {
 }
 
 async function main() {
+    console.info('> Preparing surah...\n')
     const ig = new IgApiClient()
     const { surah, ayat, translation } = getRandomAyatFairly()
     const caption = `${translation} - QS. ${surah}:${ayat}`
     const file = await getScreenshot(`https://quran.com/${surah}/${ayat}?translations=20`)
+    console.info('> Done. Conecting to Instagram Account..')
     await login(ig)
+    console.info('> Done.')
 
+    console.log('> Publishing post...')
     const {
         latitude,
         longitude,
@@ -35,13 +39,13 @@ async function main() {
     }
 
     const location = (await ig.search.location(latitude, longitude, searchQuery))[0]
-    const publishResult = await ig.publish.photo({
-        file,
-        caption,
-        location
-    })
-
-    console.log(publishResult)
+    return ig
+        .publish
+        .photo({ file, caption, location })
+        .then(result => {
+            console.log('> Publishing post done.')
+            return result
+        })
 }
 
 module.exports = main
