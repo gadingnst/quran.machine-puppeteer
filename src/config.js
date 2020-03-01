@@ -21,6 +21,7 @@ exports.loginIG = async () => {
     const ig = new IgApiClient()
     IG_PROXY && (ig.state.proxyUrl = IG_PROXY)
     IG_USERNAME && ig.state.generateDevice(IG_USERNAME)
+    await ig.simulate.preLoginFlow()
     await ig.account.login(IG_USERNAME, IG_PASSWORD)
     console.info('> Done.\n')
     return ig
