@@ -11,6 +11,5 @@ server.use(express.static('public'))
 server.listen(port, () => {
     console.info('> Bot running in port:', port)
     console.info('> Posting ayat to Instagram at every hour\n')
-    instagram()
-    new CronJob('30 * * * * *', instagram, null, true, 'Asia/Jakarta').start()
+    new CronJob('* 59 * * * *', instagram, null, true, 'Asia/Jakarta').start()
 })
