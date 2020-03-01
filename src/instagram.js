@@ -11,14 +11,11 @@ const main = ig => async () => {
     console.info('> Done.\n')
 
     console.info('> Publishing post...')
-    const {
-        latitude,
-        longitude,
-        searchQuery
-    } = {
-        latitude: 0.0,
-        longitude: 0.0,
-        searchQuery: 'place',
+    const { latitude, longitude, searchQuery } = {
+        // set to jakarta location
+        latitude: -6.121435,
+        longitude: 106.774124,
+        searchQuery: 'indonesia',
     }
 
     const location = (await ig.search.location(latitude, longitude, searchQuery))[0]
