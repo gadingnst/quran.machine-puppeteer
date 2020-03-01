@@ -1,5 +1,5 @@
 /* Setting things up. */
-const CronJob = require('cron').CronJob
+const CronJob = require('node-cron')
 const express = require('express')
 const { loginIG } = require('./src/config')
 const instagram = require('./src/instagram')
@@ -11,10 +11,10 @@ server.use(express.static('public'))
 
 server.listen(port, () => {
     console.info('> Bot running in port:', port)
-    console.info('> Posting ayat to Instagram at 3 hours\n')
+    console.info('> Posting ayat to Instagram every 3 hours\n')
     loginIG()
         .then(user => {
-            new CronJob('* * */3 * * *', instagram(user), null, true, 'Asia/Jakarta').start()
+            CronJob.schedule('0 0 */3 * * *', instagram(user))
             return instagram(user)()
         })
 })
