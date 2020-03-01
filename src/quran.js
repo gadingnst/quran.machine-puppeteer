@@ -4,11 +4,15 @@
 const { puppeteer } = require('./config')
 const quran = require('../quran.json')
 
-async function getScreenshot(url, type = 'png') {
-  console.log({ url, type })
+async function getScreenshot(url, type = 'jpeg') {
   const browser = await puppeteer()
   const page = await browser.newPage()
-  await page.goto(url)
+  await page.setViewport({
+    width: 640,
+    height: 480,
+    deviceScaleFactor: 1
+  })
+  await page.goto(url, { waitUntil: 'load', timeout: 0 })
   await autoScroll(page)
   const file = await screenshotAyat(page, type)
   await browser.close()
