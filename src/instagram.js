@@ -1,35 +1,16 @@
-const { IgApiClient } = require('instagram-private-api')
-
-const {
-    IG_PROXY,
-    IG_USERNAME,
-    IG_PASSWORD
-} = require('./config')
-
 const {
     getRandomAyatFairly,
     getScreenshot
 } = require('./quran')
 
-const login = ig => {
-    IG_PROXY && (ig.state.proxyUrl = IG_PROXY)
-    IG_USERNAME && ig.state.generateDevice(IG_USERNAME)
-    return ig.account.login(IG_USERNAME, IG_PASSWORD)
-}
-
-async function main() {
+const main = ig => async () => {
     console.info('> Preparing surah...')
-    const ig = new IgApiClient()
     const { surah, ayat, translation } = getRandomAyatFairly()
     const caption = `${translation} - QS. ${surah}:${ayat}`
     const file = await getScreenshot(`https://quran.com/${surah}/${ayat}?translations=20`)
     console.info('> Done.\n')
 
-    console.info('> Conecting to Instagram Account..')
-    await login(ig)
-    console.info('> Done.\n')
-
-    console.log('> Publishing post...')
+    console.info('> Publishing post...')
     const {
         latitude,
         longitude,

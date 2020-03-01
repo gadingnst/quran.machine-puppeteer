@@ -19,7 +19,7 @@ async function getScreenshot(url, type = 'jpeg') {
     const file = await screenshotAyat(page, type)
     const resizedFile = await Jimp.read(file)
     return resizedFile
-      .scaleToFit(640, Jimp.AUTO, Jimp.RESIZE_BEZIER)
+      .scaleToFit(500, Jimp.AUTO, Jimp.RESIZE_BEZIER)
       .getBufferAsync(Jimp.AUTO)
   } catch (err) {
     console.error(err)
