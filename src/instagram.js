@@ -18,14 +18,16 @@ const login = ig => {
 }
 
 async function main() {
-    console.info('> Preparing surah...\n')
+    console.info('> Preparing surah...')
     const ig = new IgApiClient()
     const { surah, ayat, translation } = getRandomAyatFairly()
     const caption = `${translation} - QS. ${surah}:${ayat}`
     const file = await getScreenshot(`https://quran.com/${surah}/${ayat}?translations=20`)
-    console.info('> Done. Conecting to Instagram Account..')
+    console.info('> Done.\n')
+
+    console.info('> Conecting to Instagram Account..')
     await login(ig)
-    console.info('> Done.')
+    console.info('> Done.\n')
 
     console.log('> Publishing post...')
     const {
@@ -43,7 +45,7 @@ async function main() {
         .publish
         .photo({ file, caption, location })
         .then(result => {
-            console.log('> Publishing post done.')
+            console.log(`> Publishing post done at: ${new Date().toLocaleString()}.\n`)
             return result
         })
 }
