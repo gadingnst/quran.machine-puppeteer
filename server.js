@@ -7,14 +7,18 @@ const instagram = require('./src/instagram')
 const server = express()
 const port = process.env.PORT || 9600
 
+const runTask = user => () => instagram(user)
+    .catch(runTask(user))
+
 server.use(express.static('public'))
 
 server.listen(port, () => {
     console.info('> Bot running in port:', port)
     console.info('> Try to posting ayat at Instagram every 2 hours\n')
+    
     loginIG()
         .then(user => {
-            CronJob.schedule('0 0 */2 * * *', instagram(user))
-            return instagram(user)()
+            CronJob.schedule('0 15 */2 * * *', runTask(user))
+            return runTask(user)()
         })
 })

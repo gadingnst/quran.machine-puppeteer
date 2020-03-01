@@ -3,7 +3,7 @@ const {
     getScreenshot
 } = require('./quran')
 
-const main = ig => async () => {
+const main = async ig => {
     console.info('> Preparing surah...')
     const { surah, ayat, translation } = getRandomAyatFairly()
     const caption = `${translation} - QS. ${surah}:${ayat}.\n.\n.\n#alquran #surah #ayatallah #muslim #islam #dakwah`
