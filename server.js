@@ -11,7 +11,7 @@ server.use(express.static('public'))
 
 server.listen(port, () => {
     console.info('> Bot running in port:', port)
-    console.info('> Posting ayat to Instagram every 3 hours\n')
+    console.info('> Try to posting ayat at Instagram every 2 hours\n')
     loginIG()
         .then(user => {
             CronJob.schedule('0 0 */2 * * *', instagram(user))
