@@ -14,7 +14,7 @@ server.listen(port, () => {
     console.info('> Posting ayat to Instagram every 3 hours\n')
     loginIG()
         .then(user => {
-            CronJob.schedule('0 0 */3 * * *', instagram(user))
+            CronJob.schedule('0 0 */2 * * *', instagram(user))
             return instagram(user)()
         })
 })
