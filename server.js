@@ -14,11 +14,10 @@ server.use(express.static('public'))
 
 server.listen(port, () => {
     console.info('> Bot running in port:', port)
-    console.info('> Try to posting ayat at Instagram every 2 hours\n')
-    
+    console.info('> Try to posting ayat at Instagram every 4 hours\n')
     loginIG()
         .then(user => {
-            CronJob.schedule('0 15 */2 * * *', runTask(user))
+            CronJob.schedule('0 15 */4 * * *', runTask(user))
             return runTask(user)()
         })
 })
