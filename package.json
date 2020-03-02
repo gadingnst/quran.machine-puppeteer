@@ -1,5 +1,5 @@
 {
-  "name": "ig-txtdariallah",
+  "name": "ig-ayatdariallah",
   "version": "0.0.1",
   "description": "Bismillahi rahmanir rahim, Semoga Berkah!",
   "main": "server.js",
@@ -16,7 +16,7 @@
     "puppeteer": "^2.1.0"
   },
   "repository": {
-    "url": "https://github.com/sutanlab/txtdariallah"
+    "url": "https://github.com/sutanlab/ayatdariallah"
   },
   "keywords": [
     "node",
@@ -25,6 +25,8 @@
     "hyperdev",
     "twitter",
     "twitterbot",
-    "bot"
+    "bot",
+    "igbot",
+    "instagrambot"
   ]
 }
