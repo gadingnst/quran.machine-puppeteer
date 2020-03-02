@@ -1,9 +1,9 @@
-# textdariallah
+# teksdariallah
 
-### Goto Website [here](http://textdariallah.sutanlab.id)
+### Goto Website [here](http://teksdariallah.sutanlab.id)
 
 - [txtdariallah via Twitter](https://twitter.com/txtdariallah)
-- [textdariallah via Instagram](https://instagram.com/textdariallah)
+- [teksdariallah via Instagram](https://instagram.com/teksdariallah)
 
 Related repository: [txtdariallah via twitter (made by mathdroid)](https://github.com/mathdroid/txtdariallah)
 
