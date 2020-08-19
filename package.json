@@ -33,12 +33,10 @@
     "vercel": "^19.2.0"
   },
   "devDependencies": {
-    "@types/compression": "^1.7.0",
     "@types/cors": "^2.8.7",
     "@types/express": "^4.17.7",
     "@types/node": "^14.6.0",
     "@types/puppeteer": "^3.0.1",
-    "@types/puppeteer-core": "^2.0.0",
-    "nodemon": "^2.0.4"
+    "@types/puppeteer-core": "^2.0.0"
   }
 }

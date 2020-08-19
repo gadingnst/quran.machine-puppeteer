@@ -19,11 +19,6 @@ $ yarn install
 $ yarn start
 ```
 
-## Start Development Server
-```bash
-$ yarn dev
-```
-
 ## Support Me
 ### Global
 [![ko-fi](https://www.ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/B0B71P7PB)
