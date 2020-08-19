@@ -86,7 +86,7 @@ export const setup = async (check = false) => {
 }
 
 
-export const publishPost = async (instagram: IgApiClient) => {
+export const publishPost = async () => {
     console.info('> Preparing surah...')
     const { surah, ayat, translation } = getRandomAyatFairly()
     const caption = `${translation} - QS. ${surah}:${ayat}.\n.\n.\n${getRandomTags()}`
@@ -101,6 +101,7 @@ export const publishPost = async (instagram: IgApiClient) => {
     }
 
     console.info('> Publishing surah...')
+    const instagram = await setup()
     const location = (await instagram.search.location(latitude, longitude, searchQuery))[0]
     const result = await instagram.publish.photo({ file, caption, location })
     

@@ -1,11 +1,8 @@
 import { Router } from 'express'
-import { IgApiClient } from 'instagram-private-api'
 import { SECRET_CODE } from './config'
-import { publishPost, setup } from './instagram'
+import { publishPost } from './instagram'
 
-let instagram: IgApiClient
 const route = Router()
-setup(true).then(ig => instagram = ig)
 
 route.get('/publish', async (req, res) => {
   const { secret } = req.query
@@ -16,7 +13,7 @@ route.get('/publish', async (req, res) => {
 
   const runTask = async (): Promise<any> => {
     try {
-      await publishPost(instagram)
+      await publishPost()
       return res.status(200).send('Success Publishing Post!')
     } catch (reason) {
       const { response } = reason
