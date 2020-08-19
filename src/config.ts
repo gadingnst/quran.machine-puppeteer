@@ -1,4 +1,5 @@
 import Chrome from 'chrome-aws-lambda'
+import Puppeteer from 'puppeteer-core'
 import Env from 'dotenv'
 
 Env.config()
@@ -12,9 +13,9 @@ export const SECRET_CODE = env.SECRET_CODE
 export const COOKIES_PATH = __dirname + '/cookies.json'
 
 export const puppeteer = () => Chrome.executablePath
-    .then(executablePath => Chrome.puppeteer.launch({
+    .then(executablePath => Puppeteer.launch({
         executablePath,
         args: Chrome.args,
-        headless: process.env.NODE_ENV !== 'development',
+        headless: env.NODE_ENV !== 'development',
         ignoreHTTPSErrors: true
     }))

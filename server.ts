@@ -9,7 +9,10 @@ const port = process.env.PORT || 9600
 
 server.use(Cors())
 server.use(Api)
-server.use(Express.static('public'))
+
+server.get('*', (_, res) => {
+    res.sendFile(`${__dirname}/public/index.html`)
+})
 
 server.listen(port, async () => {
     console.info('> Conecting to Instagram Account..')
