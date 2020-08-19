@@ -1,9 +1,8 @@
 {
   "version": 2,
-  "name": "ayatdariallah",
   "builds": [{
-      "src": "server.ts",
-      "use": "@now/node-server"
+    "src": "server.ts",
+    "use": "@now/node-server"
   }],
   "routes": [{
       "src": "/.*",
