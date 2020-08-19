@@ -38,7 +38,6 @@ const getRandomTags = () => {
 }
 
 export const setup = async (check = false) => {
-    console.info('> Conecting to Instagram Account..')
     const ig = new IgApiClient()
     IG_PROXY && (ig.state.proxyUrl = IG_PROXY)
     IG_USERNAME && ig.state.generateDevice(IG_USERNAME)
@@ -67,6 +66,7 @@ export const setup = async (check = false) => {
                 if (response?.body) {
                     const { message } = response.body
                     if (message.includes('try again')) {
+                        console.error('> Too many request, will trying again in 8s...\n')
                         return setTimeout(runTask, 8000)
                     }
                 }
@@ -86,14 +86,13 @@ export const setup = async (check = false) => {
 }
 
 
-export const publishPost = async () => {
+export const publishPost = async (instagram: IgApiClient) => {
     console.info('> Preparing surah...')
     const { surah, ayat, translation } = getRandomAyatFairly()
     const caption = `${translation} - QS. ${surah}:${ayat}.\n.\n.\n${getRandomTags()}`
     const file = <Buffer> await getScreenshot(`https://quran.com/${surah}/${ayat}?translations=20`)
-    console.info('> Done.\n')
+    console.info('> Surah Prepared.')
 
-    const instagram = await setup()
     const { latitude, longitude, searchQuery } = {
         // set to jakarta location
         latitude: -6.121435,
@@ -101,10 +100,10 @@ export const publishPost = async () => {
         searchQuery: 'Jakarta, Indonesia',
     }
 
-    console.info('> Publishing post...')
+    console.info('> Publishing surah...')
     const location = (await instagram.search.location(latitude, longitude, searchQuery))[0]
     const result = await instagram.publish.photo({ file, caption, location })
     
-    console.log(`> Post published at: ${new Date().toLocaleString()}.\n`)
+    console.info(`> Surah published at: ${new Date().toLocaleString()}.\n`)
     return result
 }

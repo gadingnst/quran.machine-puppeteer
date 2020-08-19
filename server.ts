@@ -12,6 +12,7 @@ server.use(Api)
 server.use(Express.static('public'))
 
 server.listen(port, async () => {
+    console.info('> Conecting to Instagram Account..')
     await setup(true)
     console.info(`> Bot served at: http://localhost:${port}\n`)
 })

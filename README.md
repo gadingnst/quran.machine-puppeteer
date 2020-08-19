@@ -1,11 +1,28 @@
 # ayatdariallah
 
-### Goto Website [here](http://ayatdariallah.sutanlab.id)
+### Goto Website [here](https://ayatdariallah.sutanlab.id)
 
 - [txtdariallah (Twitter Account)](https://twitter.com/txtdariallah)
 - [ayatdariallah (Instagram Account)](https://instagram.com/ayatdariallah)
 
+Posts qur'an verses and translations on Instagram. Deploy on [Vercel](https://vercel.com), Automation with [Github Actions](https://github.com/features/actions)
+
 Forked from repository: [txtdariallah(made by mathdroid)](https://github.com/mathdroid/txtdariallah)
+
+## Install Depedencies
+```bash
+$ yarn install
+```
+
+## Start Server
+```bash
+$ yarn start
+```
+
+## Start Development Server
+```bash
+$ yarn dev
+```
 
 ## Support Me
 ### Global

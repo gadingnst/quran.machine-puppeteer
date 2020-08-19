@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "name": "ayatdariallah",
+  "builds": [{
+      "src": "server.ts",
+      "use": "@now/node-server"
+  }],
+  "routes": [{
+      "src": "/.*",
+      "dest": "server.ts"
+  }]
+}
