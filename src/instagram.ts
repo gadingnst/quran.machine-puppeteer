@@ -1,7 +1,7 @@
 import Fs from 'fs'
 import { IgApiClient } from 'instagram-private-api'
 import { getRandomAyatFairly, getScreenshot } from './quran'
-import { IG_PROXY, IG_USERNAME, IG_PASSWORD } from './config'
+import { IG_PROXY, IG_USERNAME, IG_PASSWORD, COOKIES_PATH } from './config'
 
 const getRandomTags = () => {
     let tags = ''
@@ -47,7 +47,7 @@ export const setup = async (check = false) => {
         if (!check) throw flag
 
         console.info('> Checking Cookies...')
-        if (Fs.existsSync('./cookies.json')) {
+        if (Fs.existsSync(COOKIES_PATH)) {
             console.info('> Login Skipped, Cookies Exists!')
             throw flag
         }
@@ -58,7 +58,7 @@ export const setup = async (check = false) => {
                 await ig.simulate.preLoginFlow()
                 await ig.account.login(IG_USERNAME as string, IG_PASSWORD as string)
                 const cookies = await ig.state.serializeCookieJar() 
-                await Fs.promises.writeFile('./cookies.json', JSON.stringify(cookies))
+                await Fs.promises.writeFile(COOKIES_PATH, JSON.stringify(cookies))
                 console.info('> Login Cookies Stored!\n')
             } catch (reason) {
                 const { response } = reason
@@ -78,7 +78,7 @@ export const setup = async (check = false) => {
         await runTask()
     } catch (reason) {
         if (!reason.cache) throw reason
-        const loginCookies = require('../cookies.json')
+        const loginCookies = require(COOKIES_PATH)
         await ig.state.deserializeCookieJar(loginCookies)
     }
     
