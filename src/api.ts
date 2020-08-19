@@ -8,13 +8,21 @@ route.get('/publish', async (req, res) => {
   const { secret } = req.query
 
   if (secret !== SECRET_CODE) {
-    return res.status(403).send('Access Forbidden')
+    return res.status(403).send({
+      code: 403,
+      message: 'Access Forbidden.',
+      error: false
+    })
   }
 
   const runTask = async (): Promise<any> => {
     try {
       await publishPost()
-      return res.status(200).send('Success Publishing Post!')
+      return res.status(200).send({
+        code: 200,
+        message: 'Success Publishing Post!',
+        error: false
+      })
     } catch (reason) {
       const { response } = reason
       
@@ -27,8 +35,11 @@ route.get('/publish', async (req, res) => {
       }
       
       console.error('Error on publishing surah:', reason)
-      return res.status(500)
-        .send('Something went wrong, try again later.')
+      return res.status(500).send({
+        code: 500,
+        message: 'Something went wrong, try again later.',
+        error: reason
+      })
     }
   }
   
