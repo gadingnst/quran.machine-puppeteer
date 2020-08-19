@@ -5,7 +5,7 @@ import { publishPost, setup } from './instagram'
 
 let instagram: IgApiClient
 const route = Router()
-setup().then(ig => instagram = ig)
+setup(true).then(ig => instagram = ig)
 
 route.get('/publish', async (req, res) => {
   const { secret } = req.query
