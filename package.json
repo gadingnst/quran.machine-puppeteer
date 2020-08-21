@@ -1,7 +1,7 @@
 {
   "name": "ayatdariallah",
   "version": "0.0.1",
-  "description": "Bismillahi rahmanir rahim, Semoga Berkah!",
+  "description": "🤖 Automatic posts random qur'an verses and translations on Instagram.",
   "main": "server.ts",
   "license": "MIT",
   "scripts": {

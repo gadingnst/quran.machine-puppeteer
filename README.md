@@ -1,13 +1,12 @@
 # ayatdariallah
 
-### Goto Website [here](https://ayatdariallah.sutanlab.id)
+> Automatic posts random qur'an verses and translations on Instagram. Deploy on Serverless Service [Vercel](https://vercel.com).
 
-- [txtdariallah (Twitter Account)](https://twitter.com/txtdariallah)
-- [ayatdariallah (Instagram Account)](https://instagram.com/ayatdariallah)
+## My Running Bot
+### [Website](https://ayatdariallah.sutanlab.id)
+### [Instagram Account](https://instagram.com/ayatdariallah)
 
-Posts qur'an verses and translations on Instagram. Deploy on [Vercel](https://vercel.com), Automation with [Github Actions](https://github.com/features/actions)
-
-Forked from repository: [txtdariallah(made by mathdroid)](https://github.com/mathdroid/txtdariallah)
+Forked from repository: [txtdariallah for twitter (made by mathdroid)](https://github.com/mathdroid/txtdariallah). For setup details, you should check it out!
 
 ## Install Depedencies
 ```bash
@@ -27,5 +26,4 @@ $ yarn start
 - [Karyakarsa](https://karyakarsa.com/sutanlab)
 
 ---
-
-\ ゜ o ゜)ノ
+Best Regards, Sutan Gading Fadhillah Nasution.
