@@ -12,42 +12,49 @@ type QuranJSON = {
 
 const quran: QuranJSON = require('../quran.json')
 
-async function screenshotAyat(page: Page, type: ImageType) {
-  const ayat = await page.$('#bismillah + div')
-  return ayat?.screenshot({ type })
-}
+const setPageWidth = (page: Page, width: number) => page.setViewport({
+  width,
+  height: 680,
+  deviceScaleFactor: 1
+})
 
-async function autoScroll(page: Page) {
-  await page.evaluate(async () => new Promise(resolve => {
-    let totalHeight = 0
-    const distance = 100
-    const timer = setInterval(() => {
-      const scrollHeight = document.body.scrollHeight
-      window.scrollBy(0, distance)
-      totalHeight += distance
-      if (totalHeight >= scrollHeight) {
-        clearInterval(timer)
-        resolve()
-      }
-    }, 100)
-  }))
+async function screenshotAyat(page: Page, type: ImageType) {
+  const ayat = await page.$('div[name*="verse:"]')
+  const height = await page.evaluate(() => {
+    const target = document.querySelector('div[name*="verse:"]')
+    const header: any = document.querySelector('.container-fluid')
+    const floatTool: any = document.querySelector('._32NvhYFTY8ARGfNWQ_-6hv') 
+    header && (header.style.display = 'none')
+    floatTool && (floatTool.style.display = 'none')
+    return target?.scrollHeight
+  }) || 0
+
+  if (height > 1000) {
+    await setPageWidth(page, 1600)
+  } else if (height > 500) {
+    await setPageWidth(page, 1280)
+  } else if (height < 350) {
+    await setPageWidth(page, 480)
+  }
+
+  return ayat?.screenshot({ type })
 }
 
 export async function getScreenshot(url: string, type: ImageType = 'jpeg') {
   const browser = await puppeteer()
+  const randValue = (~~(Math.random() * 8) + 20) * 10
+  const possibleColors = ['red', 'green', 'blue']
   try {
     const page = await browser.newPage()
-    await page.setViewport({
-      width: 640,
-      height: 480,
-      deviceScaleFactor: 1
-    })
+    await setPageWidth(page, 640)
     await page.goto(url, { waitUntil: 'load', timeout: 0 })
-    await autoScroll(page)
     const file = await screenshotAyat(page, type)
-    const resizedFile = await Jimp.read(file as Buffer)
-    return resizedFile
-      .scaleToFit(500, Jimp.AUTO, Jimp.RESIZE_BEZIER)
+    const image = await Jimp.read(file as Buffer)
+    return image
+      .color([{
+        apply: <any>possibleColors[~~(Math.random() * possibleColors.length)],
+        params: [randValue],
+      }])
       .getBufferAsync(Jimp.AUTO as any)
   } catch (err) {
     console.error(err)

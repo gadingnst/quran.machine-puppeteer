@@ -5,11 +5,13 @@
   "main": "server.ts",
   "license": "MIT",
   "scripts": {
-    "install": "ts-node generate.ts",
-    "start": "vercel dev"
+    "start": "vercel dev",
+    "dev": "nodemon --exec 'ts-node' server.ts",
+    "postinstall": "ts-node generate.ts",
+    "bot:connect": "ts-node generate.ts"
   },
   "repository": {
-    "url": "https://github.com/sutanlab/ayatdariallah"
+    "url": "https://github.com/sutanlab/igbot-ayatdariallah"
   },
   "keywords": [
     "node",
@@ -37,6 +39,7 @@
     "@types/express": "^4.17.7",
     "@types/node": "^14.6.0",
     "@types/puppeteer": "^3.0.1",
-    "@types/puppeteer-core": "^2.0.0"
+    "@types/puppeteer-core": "^2.0.0",
+    "nodemon": "^2.0.4"
   }
 }

@@ -15,6 +15,6 @@ export const puppeteer = () => Chrome.executablePath
     .then(executablePath => Chrome.puppeteer.launch({
         executablePath,
         args: Chrome.args,
-        headless: Chrome.headless,
+        headless: env.NODE_ENV !== 'development',
         ignoreHTTPSErrors: true
     }))
