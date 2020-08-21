@@ -42,7 +42,6 @@ async function screenshotAyat(page: Page, type: ImageType) {
 
 export async function getScreenshot(url: string, type: ImageType = 'jpeg') {
   const browser = await puppeteer()
-  const randValue = (~~(Math.random() * 8) + 20) * 10
   const possibleColors = ['red', 'green', 'blue']
   try {
     const page = await browser.newPage()
@@ -53,7 +52,7 @@ export async function getScreenshot(url: string, type: ImageType = 'jpeg') {
     return image
       .color([{
         apply: <any>possibleColors[~~(Math.random() * possibleColors.length)],
-        params: [randValue],
+        params: [~~(Math.random() * 100)]
       }])
       .getBufferAsync(Jimp.AUTO as any)
   } catch (err) {
