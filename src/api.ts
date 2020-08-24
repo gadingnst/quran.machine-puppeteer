@@ -19,8 +19,8 @@ route.get('/publish', async (req, res) => {
   setTimeout(() => {
     if (processing) {
       processing = false
-      return res.status(301).send({
-        code: 301,
+      return res.status(304).send({
+        code: 304,
         message: 'Request timeout! Process still running but request exited.',
         error: false
       })
@@ -38,8 +38,8 @@ route.get('/publish', async (req, res) => {
     const { aspectRatioError, surah, ayat } = reason
     
     if (aspectRatioError) {
-      return processing && res.status(503).send({
-        code: 503,
+      return processing && res.status(501).send({
+        code: 501,
         message: `Cannot publish surah because aspect ratio not match with instagram. On: Q.S. ${surah}:${ayat}`,
         error: true
       })
