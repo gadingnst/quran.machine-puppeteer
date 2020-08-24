@@ -11,10 +11,12 @@ export const IG_PASSWORD = env.IG_PASSWORD
 export const SECRET_CODE = env.SECRET_CODE
 export const COOKIES_PATH = __dirname + '/cookies.json'
 
-export const puppeteer = () => Chrome.executablePath
-    .then(executablePath => Chrome.puppeteer.launch({
+export const puppeteer = async () => {
+    const executablePath = await Chrome.executablePath
+    return Chrome.puppeteer.launch({
         executablePath,
         args: Chrome.args,
         headless: env.NODE_ENV !== 'development',
         ignoreHTTPSErrors: true
-    }))
+    })
+}

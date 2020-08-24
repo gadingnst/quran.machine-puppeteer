@@ -6,6 +6,7 @@ const route = Router()
 
 route.get('/publish', async (req, res) => {
   const { secret } = req.query
+  let settled = false
 
   if (secret !== SECRET_CODE) {
     return res.status(403).send({
@@ -15,35 +16,42 @@ route.get('/publish', async (req, res) => {
     })
   }
 
-  const runTask = async (): Promise<any> => {
-    try {
-      await publishPost()
-      return res.status(200).send({
-        code: 200,
-        message: 'Success Publishing Post!',
-        error: false
-      })
-    } catch (reason) {
-      const { response } = reason
-      
-      if (response?.body) {
-        const { message } = response.body
-        if (message.includes('aspect ratio')) {
-          console.error('> Error on aspect ratio surah, try again...\n')
-          return runTask()
-        }
-      }
-      
-      console.error('Error on publishing surah:', reason)
-      return res.status(500).send({
-        code: 500,
-        message: 'Something went wrong, try again later.',
-        error: reason
+  /* prevent 502 in vercel, request timeout on 10 seconds */
+  setTimeout(() => {
+    return !settled && res.status(301).send({
+      code: 301,
+      message: 'Request timeout! Process still running but request exited.',
+      error: false
+    })
+  }, 9000)
+
+  try {
+    await publishPost()
+    settled = true
+    return res.status(201).send({
+      code: 201,
+      message: 'Success Publishing Post!',
+      error: false
+    })
+  } catch (reason) {
+    const { aspectRatioError, surah, ayat } = reason
+    settled = true
+    
+    if (aspectRatioError) {
+      return res.status(503).send({
+        code: 503,
+        message: `Cannot publish surah because aspect ratio not match with instagram. On: Q.S. ${surah}:${ayat}`,
+        error: true
       })
     }
+    
+    return res.status(500).send({
+      code: 500,
+      message: 'Something went wrong, try again later.',
+      error: reason
+    })
   }
-  
-  runTask()
+
 })
 
 export default route

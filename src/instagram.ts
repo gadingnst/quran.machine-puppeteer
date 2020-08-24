@@ -91,7 +91,7 @@ export const publishPost = async () => {
     const { surah, ayat, translation } = getRandomAyatFairly()
     const caption = `${translation} - QS. ${surah}:${ayat}.\n.\n.\n${getRandomTags()}`
     const file = <Buffer> await getScreenshot(`https://quran.com/${surah}/${ayat}?translations=20`)
-    console.info('> Surah Prepared.')
+    console.info(`> Surah Prepared: Q.S ${surah}:${ayat}`,)
 
     const { latitude, longitude, searchQuery } = {
         // set to jakarta location
@@ -103,8 +103,27 @@ export const publishPost = async () => {
     console.info('> Publishing surah...')
     const instagram = await setup()
     const location = (await instagram.search.location(latitude, longitude, searchQuery))[0]
-    const result = await instagram.publish.photo({ file, caption, location })
     
-    console.info(`> Surah published at: ${new Date().toLocaleString()}.\n`)
-    return result
+    try {
+        const result = await instagram.publish.photo({ file, caption, location })
+        console.info(`> Surah published at: ${new Date().toLocaleString()}.\n`)
+        return result
+    } catch (reason) {
+        const { response } = reason
+        
+        if (response?.body) {
+            const { message } = response.body
+            if (message.includes('aspect ratio')) {
+                console.error('> Error on aspect ratio surah.')
+                throw {
+                    aspectRatioError: true,
+                    surah,
+                    ayat
+                }
+            }
+        }
+        
+        console.error('Error on publishing surah:', reason)
+        throw new Error(reason)
+    }
 }
