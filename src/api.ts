@@ -10,7 +10,7 @@ route.get('/publish', async (req, res) => {
     return res.status(403).send({
       code: 403,
       message: 'Access Forbidden.',
-      error: false
+      error: true
     })
   }
 
@@ -19,9 +19,9 @@ route.get('/publish', async (req, res) => {
   setTimeout(() => {
     if (processing) {
       processing = false
-      return res.status(304).send({
-        code: 304,
-        message: 'Request timeout! Process still running but request exited.',
+      return res.status(202).send({
+        code: 202,
+        message: 'Request accepted! Process still running but request exited.',
         error: false
       })
     } 
