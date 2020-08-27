@@ -5,9 +5,24 @@ import Jimp from 'jimp'
 import { puppeteer } from './config'
 import { Page } from 'puppeteer'
 
-type ImageType = 'jpeg'|'png'
-type QuranJSON = {
-  [key: string]: string
+export type ImageType = 'jpeg'|'png'
+
+export type QuranJSON = {
+  [key: string]: {
+    surah: {
+      arab: string
+      latin: string
+      id: string
+    },
+    text: {
+      arab: string,
+      id: string
+    },
+    tafsir: {
+      short: string
+      long: string
+    }
+  }
 }
 
 const quran: QuranJSON = require('../quran.json')
@@ -64,9 +79,21 @@ export async function getScreenshot(url: string, type: ImageType = 'jpeg') {
 
 export const getRandomAyatFairly = () => {
   const flatAyats = Object.entries(quran)
-  const [key, translation] = flatAyats[~~(Math.random() * flatAyats.length)]
+  const [key, value] = flatAyats[~~(Math.random() * flatAyats.length)]
   const [surah, ayat] = key.split('.')
-  return { surah, ayat, translation }
+  const {
+    surah: { latin: nameSurah, id: nameSurahId },
+    text: { id: translation },
+    tafsir: { short: tafsir }
+  } = value
+  return {
+    surah,
+    ayat,
+    nameSurah,
+    nameSurahId,
+    translation,
+    tafsir
+  }
 }
 
 export default {

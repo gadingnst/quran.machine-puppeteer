@@ -6,30 +6,18 @@ import { IG_PROXY, IG_USERNAME, IG_PASSWORD, COOKIES_PATH } from './config'
 const getRandomTags = () => {
     let tags = ''
     const possibleTags = [
-        '#alquran',
-        '#surah',
-        '#ayatallah',
-        '#muslim',
-        '#islam',
-        '#quran',
-        '#muhammad',
-        '#islampost',
-        '#muslims',
-        '#muslimpost',
-        '#sunnah',
-        '#alquransunnah',
-        '#alquranterjemahan',
-        '#dakwahislam',
-        '#remajaislami',
-        '#alhamdulillah',
-        '#masyaallah',
-        '#allahuakbar',
-        '#subhanallah',
-        '#tabarakallah',
+        'alquran', 'surah', 'ayatallah', 'muslim',
+        'islam', 'quran', 'muhammad', 'islampost',
+        'muslims', 'muslimpost', 'sunnah', 'alquransunnah',
+        'alquranterjemahan', 'dakwahislam', 'remajaislami',
+        'alhamdulillah', 'masyaallah', 'allahuakbar',
+        'subhanallah', 'tabarakallah', 'tafsirsurah',
+        'tafsirayat', 'tafsiralquran', 'tafsirquran',
+        'tafsir', 'alqurandantafsir', 'tafsirindonesia'
     ]
     
-    for (let i = 0; i < 5; i++) {
-        tags += `${possibleTags[
+    for (let i = 0; i < 10; i++) {
+        tags += `#${possibleTags[
             ~~(Math.random() * possibleTags.length)
         ]} `
     }
@@ -88,8 +76,8 @@ export const setup = async (check = false) => {
 
 export const publishPost = async () => {
     console.info('> Preparing surah...')
-    const { surah, ayat, translation } = getRandomAyatFairly()
-    const caption = `${translation} - QS. ${surah}:${ayat}.\n.\n.\n${getRandomTags()}`
+    const { surah, ayat, nameSurah, nameSurahId, tafsir, translation } = getRandomAyatFairly()
+    const caption = `${translation} — ${nameSurah} (${nameSurahId}) [QS.${surah}:${ayat}]\n\nTafsir ringkas:\n${tafsir}\n.\n.\n${getRandomTags()}`
     const file = <Buffer> await getScreenshot(`https://quran.com/${surah}/${ayat}?translations=20`)
     console.info(`> Surah Prepared: Q.S ${surah}:${ayat}`,)
 
