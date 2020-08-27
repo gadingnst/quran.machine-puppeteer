@@ -77,9 +77,14 @@ export const setup = async (check = false) => {
 export const publishPost = async () => {
     console.info('> Preparing surah...')
     const { surah, ayat, nameSurah, nameSurahId, tafsir, translation } = getRandomAyatFairly()
-    const caption = `${translation} — ${nameSurah} (${nameSurahId}) [QS.${surah}:${ayat}]\n\nTafsir ringkas:\n${tafsir}\n.\n.\n${getRandomTags()}`
+    
+    let caption = `${translation} — ${nameSurah} (${nameSurahId}) [QS.${surah}:${ayat}]\n\nTafsir ringkas:\n${tafsir}\n.\n.\n${getRandomTags()}`
+    if (caption.length > 2200) {
+        caption = `${translation} — ${nameSurah} (${nameSurahId}) [QS.${surah}:${ayat}]\n.\n.\n${getRandomTags()}`
+    }
+
     const file = <Buffer> await getScreenshot(`https://quran.com/${surah}/${ayat}?translations=20`)
-    console.info(`> Surah Prepared: Q.S ${surah}:${ayat}`,)
+    console.info(`> Surah Prepared: Q.S ${surah}:${ayat}`)
 
     const { latitude, longitude, searchQuery } = {
         // set to jakarta location
