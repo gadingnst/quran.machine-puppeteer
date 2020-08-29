@@ -25,7 +25,7 @@ export type QuranJSON = {
   }
 }
 
-const quran: QuranJSON = require('../quran.json')
+const quran: QuranJSON = require('../quran-tafsir.json')
 
 const setPageWidth = (page: Page, width: number) => page.setViewport({
   width,
