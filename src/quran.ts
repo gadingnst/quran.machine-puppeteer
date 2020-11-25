@@ -34,11 +34,14 @@ const setPageWidth = (page: Page, width: number) => page.setViewport({
 })
 
 async function screenshotAyat(page: Page, type: ImageType) {
-  const ayat = await page.$('div[name*="verse:"]')
+  const ayat = await page.$('div#verses > div.verse')
   const height = await page.evaluate(() => {
-    const target = document.querySelector('div[name*="verse:"]')
-    const header: any = document.querySelector('.container-fluid')
-    const floatTool: any = document.querySelector('._32NvhYFTY8ARGfNWQ_-6hv') 
+    const target = document.querySelector('.verse .row')
+    const header: any = document.querySelector('header.sticky-top')
+    const actionBar: any = document.querySelector('section.surah-actions.sticky-top')
+    const floatTool: any = document.querySelector('div.verse-actions-below > div.col-md-1')
+    console.log({ target, header, actionBar, floatTool })
+    actionBar && (actionBar.style.display = 'none')
     header && (header.style.display = 'none')
     floatTool && (floatTool.style.display = 'none')
     return target?.scrollHeight
@@ -73,7 +76,7 @@ export async function getScreenshot(url: string, type: ImageType = 'jpeg') {
   } catch (err) {
     console.error(err)
   } finally {
-    browser.close()
+    // browser.close()
   }
 }
 
