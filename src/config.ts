@@ -3,12 +3,15 @@ import Env from 'dotenv'
 
 Env.config()
 
-const env = process.env
+export const {
+    NODE_ENV,
+    IG_PROXY,
+    IG_USERNAME,
+    IG_PASSWORD,
+    SECRET_CODE
+} = process.env
 
-export const IG_PROXY = env.IG_PROXY
-export const IG_USERNAME = env.IG_USERNAME
-export const IG_PASSWORD = env.IG_PASSWORD
-export const SECRET_CODE = env.SECRET_CODE
+export const IS_PRODUCTION = NODE_ENV !== 'development'
 export const COOKIES_PATH = __dirname + '/cookies.json'
 
 export const puppeteer = async () => {
@@ -16,7 +19,7 @@ export const puppeteer = async () => {
     return Chrome.puppeteer.launch({
         executablePath,
         args: Chrome.args,
-        headless: env.NODE_ENV !== 'development',
+        headless: IS_PRODUCTION,
         ignoreHTTPSErrors: true
     })
 }

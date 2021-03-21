@@ -2,7 +2,7 @@
 // Value: translation
 
 import Jimp from 'jimp'
-import { puppeteer } from './config'
+import { IS_PRODUCTION, puppeteer } from './config'
 import { Page } from 'puppeteer'
 
 export type ImageType = 'jpeg'|'png'
@@ -34,7 +34,7 @@ const setPageWidth = (page: Page, width: number) => page.setViewport({
 })
 
 async function screenshotAyat(page: Page, type: ImageType) {
-  const ayat = await page.$('div#verses > div.verse')
+  const ayat = await page.$('div.verses#verses-translation-list > div.verse')
   const height = await page.evaluate(() => {
     const target = document.querySelector('.verse .row')
     const header: any = document.querySelector('header.sticky-top')
@@ -76,7 +76,7 @@ export async function getScreenshot(url: string, type: ImageType = 'jpeg') {
   } catch (err) {
     console.error(err)
   } finally {
-    // browser.close()
+    IS_PRODUCTION && browser.close()
   }
 }
 
