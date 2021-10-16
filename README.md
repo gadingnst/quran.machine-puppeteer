@@ -1,12 +1,10 @@
-# ayatdariallah
+# quran.machine-puppeteer
 
-> Automatic posts random qur'an verses and translations on Instagram. Deploy on Serverless Service [Vercel](https://vercel.com).
+> Automatic screenshot qur'an verses. Deploy on Serverless Service [Vercel](https://vercel.com).
 
-## My Running Bot
-### [Website](https://ayatdariallah.sutanlab.id)
-### [Instagram Account](https://instagram.com/ayatdariallah)
-
-Forked from repository: [txtdariallah for twitter (made by mathdroid)](https://github.com/mathdroid/txtdariallah). For setup details, you should check it out!
+## Related System
+### [Bot (Instagram Account)](https://instagram.com/quran.machine)
+### [Bot Source Code](https://github.com/sutanlab/quran.machine)
 
 ## Install Depedencies
 ```bash
@@ -17,6 +15,12 @@ $ yarn install
 ```bash
 $ yarn start
 ```
+
+# How to get screenshot image
+- Goto `https://puppet.quran-machine.sutanlab.id/screenshot/{surah}/{ayah}`.
+
+## About
+Inspired from repository: [txtdariallah for twitter (made by mathdroid)](https://github.com/mathdroid/txtdariallah). For setup details, you should check it out!
 
 ## Support Me
 ### Global

@@ -1,37 +1,23 @@
 {
-  "name": "ayatdariallah",
+  "name": "quran.machine-puppeteer",
   "version": "0.0.1",
-  "description": "🤖 Automatic posts random qur'an verses and translations on Instagram.",
+  "description": "🤖 Automatic screenshot qur'an verses.",
   "main": "server.ts",
   "license": "MIT",
   "scripts": {
     "start": "vercel dev",
-    "dev": "nodemon --exec 'ts-node' server.ts",
-    "postinstall": "ts-node generate.ts",
-    "bot:connect": "ts-node generate.ts"
+    "dev": "NODE_ENV=development nodemon --exec 'ts-node' server.ts"
   },
   "repository": {
-    "url": "https://github.com/sutanlab/igbot-ayatdariallah"
+    "url": "https://github.com/sutanlab/quran.machine-puppeteer"
   },
-  "keywords": [
-    "node",
-    "serverless",
-    "instagram",
-    "bot",
-    "igbot",
-    "instagrambot"
-  ],
   "dependencies": {
     "chrome-aws-lambda": "^5.2.1",
     "cors": "^2.8.5",
-    "dotenv": "^8.2.0",
     "express": "^4.17.1",
-    "instagram-private-api": "^1.39.1",
     "jimp": "^0.9.3",
     "puppeteer": "^2.1.0",
     "puppeteer-core": "^5.2.1",
-    "ts-node": "^8.10.2",
-    "typescript": "^3.9.7",
     "vercel": "^19.2.0"
   },
   "devDependencies": {
@@ -40,6 +26,8 @@
     "@types/node": "^14.6.0",
     "@types/puppeteer": "^3.0.1",
     "@types/puppeteer-core": "^2.0.0",
-    "nodemon": "^2.0.4"
+    "nodemon": "^2.0.4",
+    "ts-node": "^10.3.0",
+    "typescript": "^4.4.4"
   }
 }

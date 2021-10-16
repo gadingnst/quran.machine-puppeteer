@@ -1,31 +1,8 @@
-// Key: {surah}.{ayat}
-// Value: translation
-
 import Jimp from 'jimp'
 import { IS_PRODUCTION, puppeteer } from './config'
 import { Page } from 'puppeteer'
 
 export type ImageType = 'jpeg'|'png'
-
-export type QuranJSON = {
-  [key: string]: {
-    surah: {
-      arab: string
-      latin: string
-      id: string
-    },
-    text: {
-      arab: string,
-      id: string
-    },
-    tafsir: {
-      short: string
-      long: string
-    }
-  }
-}
-
-const quran: QuranJSON = require('../quran-tafsir.json')
 
 const setPageWidth = (page: Page, width: number) => page.setViewport({
   width,
@@ -34,16 +11,13 @@ const setPageWidth = (page: Page, width: number) => page.setViewport({
 })
 
 async function screenshotAyat(page: Page, type: ImageType) {
-  const ayat = await page.$('div.verses#verses-translation-list > div.verse')
+  const ayat = await page.$('main')
   const height = await page.evaluate(() => {
-    const target = document.querySelector('.verse .row')
-    const header: any = document.querySelector('header.sticky-top')
-    const actionBar: any = document.querySelector('section.surah-actions.sticky-top')
-    const floatTool: any = document.querySelector('div.verse-actions-below > div.col-md-1')
-    console.log({ target, header, actionBar, floatTool })
-    actionBar && (actionBar.style.display = 'none')
-    header && (header.style.display = 'none')
-    floatTool && (floatTool.style.display = 'none')
+    const target = document.querySelector('#verses-translation')
+    const settings: any = document.querySelector('main > div.surah-actions div.nav-button')
+    const readingButtons: any = document.querySelector('#verses-translation_pagination')
+    settings && (settings.style.display = 'none')
+    readingButtons && (readingButtons.style.display = 'none')
     return target?.scrollHeight
   }) || 0
 
@@ -80,26 +54,8 @@ export async function getScreenshot(url: string, type: ImageType = 'jpeg') {
   }
 }
 
-export const getRandomAyatFairly = () => {
-  const flatAyats = Object.entries(quran)
-  const [key, value] = flatAyats[~~(Math.random() * flatAyats.length)]
-  const [surah, ayat] = key.split('.')
-  const {
-    surah: { latin: nameSurah, id: nameSurahId },
-    text: { id: translation },
-    tafsir: { short: tafsir }
-  } = value
-  return {
-    surah,
-    ayat,
-    nameSurah,
-    nameSurahId,
-    translation,
-    tafsir
-  }
-}
-
-export default {
-  getRandomAyatFairly,
+const Quran = {
   getScreenshot
 }
+
+export default Quran
