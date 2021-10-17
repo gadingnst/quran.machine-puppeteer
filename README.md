@@ -3,7 +3,6 @@
 > Automatic screenshot qur'an verses. Deploy on Serverless Service [Vercel](https://vercel.com).
 
 ## Related System
-### [Bot (Instagram Account)](https://instagram.com/quran.machine)
 ### [Bot Source Code](https://github.com/sutanlab/quran.machine)
 
 ## Install Depedencies
