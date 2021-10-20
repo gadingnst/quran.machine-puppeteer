@@ -31,7 +31,7 @@ async function screenshotAyat(page: Page, type: ImageType) {
   return ayat?.screenshot({ type })
 }
 
-export async function getScreenshot(url: string, mode = 'dark', type: ImageType = 'png') {
+export async function getScreenshot(url: string, mode = 'dark', type: ImageType = 'jpeg') {
   const browser = await puppeteer()
   try {
     const page = await browser.newPage()
