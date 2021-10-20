@@ -5,8 +5,12 @@ const route = Router()
 
 route.get('/screenshot/:surah/:ayat', async (req, res) => {
   const { surah, ayat } = req.params;
+  const { mode = 'dark' } = req.query;
   try {
-    const bufferData = await getScreenshot(`https://quran.com/${surah}/${ayat}?translations=20`) as unknown as Buffer
+    const bufferData = await getScreenshot(
+      `https://quran.com/${surah}/${ayat}?translations=20`,
+      mode as string
+    ) as unknown as Buffer
     const image = Buffer.from(bufferData)
     res.writeHead(200, {
       'Content-Type': 'image/png',

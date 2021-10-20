@@ -15,7 +15,6 @@
     "chrome-aws-lambda": "^5.2.1",
     "cors": "^2.8.5",
     "express": "^4.17.1",
-    "jimp": "^0.9.3",
     "puppeteer": "^2.1.0",
     "puppeteer-core": "^5.2.1",
     "vercel": "^19.2.0"
