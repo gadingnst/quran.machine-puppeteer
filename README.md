@@ -7,12 +7,12 @@
 
 ## Install Depedencies
 ```bash
-$ yarn install
+$ npm install
 ```
 
 ## Start Server
 ```bash
-$ yarn start
+$ npm start
 ```
 
 # How to get screenshot image
