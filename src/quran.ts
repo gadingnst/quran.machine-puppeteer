@@ -35,10 +35,12 @@ export async function getScreenshot(url: string, mode = 'dark', type: ImageType 
   const browser = await puppeteer()
   try {
     const page = await browser.newPage()
-    await setPageWidth(page, 640)
-    await page.goto(url, { waitUntil: 'load', timeout: 0 })
-    await page.emulateMediaFeatures([
-      { name: 'prefers-color-scheme', value: mode === 'dark' ? mode : 'light' }
+    await Promise.all([
+      setPageWidth(page, 640),
+      page.emulateMediaFeatures([
+        { name: 'prefers-color-scheme', value: mode === 'dark' ? mode : 'light' }
+      ]),
+      page.goto(url, { waitUntil: 'load', timeout: 0 })
     ])
     const image = await screenshotAyat(page, type)
     return image
